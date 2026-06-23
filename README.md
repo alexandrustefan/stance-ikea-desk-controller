@@ -122,10 +122,12 @@ Encourages posture changes on a schedule (per profile):
 
 ## Requirements
 
-- **Mac** running **macOS 15** (Sequoia) or later
+- **Mac** running **macOS 15** (Sequoia) or later — this is the app’s minimum version (`MACOSX_DEPLOYMENT_TARGET = 15.0`)
 - **IKEA IDÅSEN** or compatible **LINAK** sit-stand desk with Bluetooth
 - **Bluetooth** turned on
 - **Xcode** — only if you [build from source](#option-b--build-from-source-advanced); not needed for the download
+
+On **macOS 15–25**, Stance uses standard materials and bordered buttons. **Liquid Glass** UI enhancements appear automatically on **macOS 26+** where available.
 
 ## Getting Stance on your Mac
 

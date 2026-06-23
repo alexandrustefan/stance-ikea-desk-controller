@@ -6,9 +6,11 @@ Thank you for your interest in contributing. Stance is an unofficial macOS menu 
 
 ### Requirements
 
-- macOS 15 or later
-- Xcode 26 or later (Xcode beta is fine)
+- macOS 15 or later to **run** Stance
+- Xcode 26 or later (Xcode beta is fine) to **build** from source
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
+
+GitHub Actions builds on **macOS 26** runners with **Xcode 26** because the project uses Liquid Glass APIs guarded by `#available(macOS 26, *)`. That is the compile environment only — release binaries still target **macOS 15+** and include material fallbacks for older systems.
 
 ### Build from source
 
