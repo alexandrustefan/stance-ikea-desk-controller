@@ -23,29 +23,19 @@ struct BrandMark: View {
             .foregroundStyle(BrandTheme.accent)
             .frame(width: size, height: size)
             .background {
-                brandMarkBackground(cornerRadius: cornerRadius)
+                if #available(macOS 26, *) {
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .fill(.clear)
+                        .glassEffect(
+                            .regular.tint(BrandTheme.accent.opacity(0.22)).interactive(),
+                            in: .rect(cornerRadius: cornerRadius)
+                        )
+                } else {
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .fill(BrandTheme.accentSoft)
+                }
             }
             .accessibilityHidden(true)
-    }
-
-    @ViewBuilder
-    private func brandMarkBackground(cornerRadius: CGFloat) -> some View {
-        #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 260000
-            if #available(macOS 26, *) {
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.clear)
-                    .glassEffect(
-                        .regular.tint(BrandTheme.accent.opacity(0.22)).interactive(),
-                        in: .rect(cornerRadius: cornerRadius)
-                    )
-            } else {
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(BrandTheme.accentSoft)
-            }
-        #else
-            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .fill(BrandTheme.accentSoft)
-        #endif
     }
 }
 
@@ -92,22 +82,17 @@ struct BrandPresetButtonStyle: ButtonStyle {
     @ViewBuilder
     private func presetBackground(isPressed: Bool) -> some View {
         let shape = RoundedRectangle(cornerRadius: 14, style: .continuous)
-        #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 260000
-            if #available(macOS 26, *) {
-                shape
-                    .fill(.clear)
-                    .glassEffect(
-                        .regular.tint(BrandTheme.accent.opacity(isPressed ? 0.28 : 0.18)).interactive(),
-                        in: .rect(cornerRadius: 14)
-                    )
-            } else {
-                shape.fill(isPressed ? BrandTheme.accentSoft : BrandTheme.accentMuted)
-                shape.strokeBorder(BrandTheme.accent.opacity(0.18), lineWidth: 1)
-            }
-        #else
+        if #available(macOS 26, *) {
+            shape
+                .fill(.clear)
+                .glassEffect(
+                    .regular.tint(BrandTheme.accent.opacity(isPressed ? 0.28 : 0.18)).interactive(),
+                    in: .rect(cornerRadius: 14)
+                )
+        } else {
             shape.fill(isPressed ? BrandTheme.accentSoft : BrandTheme.accentMuted)
             shape.strokeBorder(BrandTheme.accent.opacity(0.18), lineWidth: 1)
-        #endif
+        }
     }
 }
 
@@ -123,20 +108,15 @@ struct BrandMovementButtonStyle: ButtonStyle {
     @ViewBuilder
     private func movementBackground(isPressed: Bool) -> some View {
         let shape = RoundedRectangle(cornerRadius: 12, style: .continuous)
-        #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 260000
-            if #available(macOS 26, *) {
-                shape
-                    .fill(.clear)
-                    .glassEffect(.regular.interactive(), in: .rect(cornerRadius: 12))
-                    .opacity(isPressed ? 0.85 : 1)
-            } else {
-                shape.fill(Color.primary.opacity(isPressed ? 0.08 : 0.05))
-                shape.strokeBorder(Color.primary.opacity(0.08), lineWidth: 1)
-            }
-        #else
+        if #available(macOS 26, *) {
+            shape
+                .fill(.clear)
+                .glassEffect(.regular.interactive(), in: .rect(cornerRadius: 12))
+                .opacity(isPressed ? 0.85 : 1)
+        } else {
             shape.fill(Color.primary.opacity(isPressed ? 0.08 : 0.05))
             shape.strokeBorder(Color.primary.opacity(0.08), lineWidth: 1)
-        #endif
+        }
     }
 }
 
@@ -152,22 +132,17 @@ struct BrandStopButtonStyle: ButtonStyle {
     @ViewBuilder
     private func stopBackground(isPressed: Bool) -> some View {
         let shape = RoundedRectangle(cornerRadius: 12, style: .continuous)
-        #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 260000
-            if #available(macOS 26, *) {
-                shape
-                    .fill(.clear)
-                    .glassEffect(
-                        .regular.tint(BrandTheme.stop.opacity(isPressed ? 0.3 : 0.2)).interactive(),
-                        in: .rect(cornerRadius: 12)
-                    )
-            } else {
-                shape.fill(isPressed ? BrandTheme.stopSoft : BrandTheme.stopSoft.opacity(0.7))
-                shape.strokeBorder(BrandTheme.stop.opacity(0.2), lineWidth: 1)
-            }
-        #else
+        if #available(macOS 26, *) {
+            shape
+                .fill(.clear)
+                .glassEffect(
+                    .regular.tint(BrandTheme.stop.opacity(isPressed ? 0.3 : 0.2)).interactive(),
+                    in: .rect(cornerRadius: 12)
+                )
+        } else {
             shape.fill(isPressed ? BrandTheme.stopSoft : BrandTheme.stopSoft.opacity(0.7))
             shape.strokeBorder(BrandTheme.stop.opacity(0.2), lineWidth: 1)
-        #endif
+        }
     }
 }
 
