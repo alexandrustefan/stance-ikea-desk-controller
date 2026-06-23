@@ -7,7 +7,7 @@ enum AppConstants {
 
     static let bundleID = "com.alexandrustefan.ikea-desk-controller"
     static let appGroupID = "group.com.alexandrustefan.ikea-desk-controller"
-    static let githubURL = "https://github.com/alexandrustefan/ikea-desk-controller"
+    static let githubURL = "https://github.com/alexandrustefan/stance-ikea-desk-controller"
 
     enum UserDefaultsKey {
         static let deskDevices = "deskDevices"

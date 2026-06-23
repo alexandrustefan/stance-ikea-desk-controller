@@ -59,6 +59,7 @@ final class AppState {
         activeDesk = deskDevices.first(where: { $0.id == store.loadActiveDeskID() }) ?? deskDevices.first
         deskManager.savedPeripheralUUID = store.savedPeripheralUUID ?? activeDesk?.peripheralUUID
         deskManager.movement.useLegacyFallback = store.legacyMovementFallback
+        deskManager.movement.onArrived = { HapticService.playSuccess() }
         if let calibration = activeDesk?.calibration {
             deskManager.heightOffsetCM = calibration.heightOffset
         }
@@ -75,6 +76,7 @@ final class AppState {
 
         deskManager.start()
         autoStandService.start(appState: self)
+        notificationService.configure(appState: self)
         registerHotkeys()
         Task { await notificationService.requestAuthorization() }
         NotificationCenter.default.addObserver(
@@ -89,6 +91,7 @@ final class AppState {
 
         Self.current = self
         SpotlightIndexer.indexProfiles(profileManager.profiles)
+        SpotlightIndexer.indexDesk(appState: self)
     }
 
     func handleDeskConnected(_ peripheral: CBPeripheral) {
@@ -100,6 +103,15 @@ final class AppState {
             existing.lastConnectedAt = .now
             let makeActive = activeDesk?.peripheralUUID == peripheral.identifier
             upsertDesk(existing, makeActive: makeActive)
+            
+            if profileManager.profiles(for: existing.id).isEmpty, store.hasCompletedOnboarding {
+                _ = profileManager.createProfile(
+                    name: deskDevices.count > 1 ? existing.title : "Work",
+                    deskDeviceId: existing.id,
+                    sitHeight: 72,
+                    standHeight: 112
+                )
+            }
             return
         }
 
@@ -360,6 +372,10 @@ final class AppState {
 
     func updateHotkey(_ action: HotKeyService.HotkeyAction, combo: KeyCombo?) {
         guard var profile = profileManager.activeProfile else { return }
+        if let combo,
+           HotkeyConflictChecker.hasConflict(for: combo, in: profile.hotkeys, excluding: action) {
+            return
+        }
         switch action {
         case .moveSit: profile.hotkeys.moveSit = combo
         case .moveStand: profile.hotkeys.moveStand = combo
@@ -395,8 +411,9 @@ final class AppState {
             .moveUp: { [weak self] in self?.deskManager.movement.beginHoldUp() },
             .moveDown: { [weak self] in self?.deskManager.movement.beginHoldDown() },
             .cycleProfiles: { [weak self] in
-                self?.profileManager.cycleActiveProfile()
-                self?.registerHotkeys()
+                guard let self, let deskId = activeDesk?.id else { return }
+                profileManager.cycleActiveProfile(for: deskId)
+                registerHotkeys()
             },
             .emergencyStop: { [weak self] in self?.stopMovement() },
         ], onKeyUp: { [weak self] action in

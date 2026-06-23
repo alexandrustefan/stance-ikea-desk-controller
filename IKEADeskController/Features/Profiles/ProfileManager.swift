@@ -84,17 +84,18 @@ final class ProfileManager {
         save()
     }
 
-    func cycleActiveProfile() {
-        guard !profiles.isEmpty else { return }
+    func cycleActiveProfile(for deskId: UUID) {
+        let deskProfiles = profiles(for: deskId)
+        guard !deskProfiles.isEmpty else { return }
         guard let current = activeProfile,
-              let index = profiles.firstIndex(where: { $0.id == current.id })
+              let index = deskProfiles.firstIndex(where: { $0.id == current.id })
         else {
-            activeProfileID = profiles.first?.id
+            activeProfileID = deskProfiles.first?.id
             save()
             return
         }
-        let nextIndex = (index + 1) % profiles.count
-        activeProfileID = profiles[nextIndex].id
+        let nextIndex = (index + 1) % deskProfiles.count
+        activeProfileID = deskProfiles[nextIndex].id
         save()
     }
 

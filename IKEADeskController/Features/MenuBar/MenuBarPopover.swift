@@ -55,9 +55,15 @@ struct MenuBarPopover: View {
             }
 
             if !isConnected {
-                Text("Connect your desk in Settings → Desk to move.")
-                    .font(.caption)
-                    .foregroundStyle(.orange)
+                if let error = appState.deskManager.connectionErrorMessage {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                } else {
+                    Text("Connect your desk in Settings → Desk to move.")
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                }
             }
 
             footer
@@ -65,6 +71,11 @@ struct MenuBarPopover: View {
         .padding(16)
         .frame(width: 300)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .focusable()
+        .onKeyPress(.escape) {
+            NSApp.keyWindow?.close()
+            return .handled
+        }
         .task {
             if appState.showCalibration {
                 openWindow(id: "calibration")
@@ -126,9 +137,11 @@ struct MenuBarPopover: View {
                 PrimaryPositionButton(title: "Sit", systemImage: "chair.fill", heightCM: profile?.sitHeight) {
                     appState.moveToSit()
                 }
+                .keyboardShortcut("1", modifiers: .command)
                 PrimaryPositionButton(title: "Stand", systemImage: "figure.stand", heightCM: profile?.standHeight) {
                     appState.moveToStand()
                 }
+                .keyboardShortcut("2", modifiers: .command)
             }
             .disabled(!isConnected)
 
@@ -153,8 +166,10 @@ struct MenuBarPopover: View {
     private var footer: some View {
         HStack(spacing: 0) {
             Button("Settings") { appState.openSettings() }
+                .keyboardShortcut(",", modifiers: .command)
             Spacer()
             Button("Recalibrate") { appState.openCalibration() }
+                .keyboardShortcut("r", modifiers: [.command, .shift])
             Spacer()
             Button("Quit") { appState.quitApp() }
                 .foregroundStyle(.secondary)

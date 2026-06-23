@@ -8,8 +8,11 @@ final class DeskPeripheral: NSObject {
     private(set) var positionCharacteristic: CBCharacteristic?
     private(set) var referenceInputCharacteristic: CBCharacteristic?
 
+    var onGATTReady: (() -> Void)?
+
     var onPositionUpdate: ((DeskPosition) -> Void)?
 
+    private var hasNotifiedGATTReady = false
     private var heightOffsetCM: Float
 
     init(peripheral: CBPeripheral, heightOffsetCM: Float) {
@@ -83,6 +86,15 @@ extension DeskPeripheral: CBPeripheralDelegate {
                 break
             }
         }
+        validateGATTReady()
+    }
+
+    private func validateGATTReady() {
+        guard !hasNotifiedGATTReady,
+              controlCharacteristic != nil,
+              positionCharacteristic != nil else { return }
+        hasNotifiedGATTReady = true
+        onGATTReady?()
     }
 
     func peripheral(

@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Test
+        run: |
+          xcodebuild test \
+            -project IKEADeskController.xcodeproj \
+            -scheme IKEADeskController \
+            -destination 'platform=macOS' \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: Build Release
+        run: |
+          xcodebuild build \
+            -project IKEADeskController.xcodeproj \
+            -scheme IKEADeskController \
+            -configuration Release \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: Package DMG
+        run: |
+          chmod +x Scripts/package_dmg.sh
+          VERSION="${GITHUB_REF_NAME#v}"
+          ./Scripts/package_dmg.sh "$VERSION" build/DerivedData/Build/Products/Release/Stance.app
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/Stance-*.dmg
+          generate_release_notes: true

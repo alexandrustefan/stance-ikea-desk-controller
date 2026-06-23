@@ -16,26 +16,41 @@
 		21B5B90D76DC750A8F4D3C00 /* AboutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE1B21D541722950D70359F /* AboutSettings.swift */; };
 		251E20C698FFF0859FE44E19 /* DeskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA16C9FB5E9871F0FC4592F /* DeskManager.swift */; };
 		25364EBD55FB65FE5AD7A1B4 /* ProfilesSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C195D223EC649F1824C93 /* ProfilesSettings.swift */; };
+		28CCA40E49A3FC74DC6F87F7 /* AutoStandSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341835C9CEAE0ECBFAB15B18 /* AutoStandSchedulerTests.swift */; };
 		29D4F438D6BE0999E8066AD5 /* ProfileAppEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168E9D68F6239F0106A8B522 /* ProfileAppEntity.swift */; };
+		2EC46995524648786D3F6F82 /* AutoStandScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EFC1A1F0945F3FBFBB7022 /* AutoStandScheduler.swift */; };
+		3271313C547DB3C86EB4F6C6 /* ProfileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7C5E6808980430922332CF /* ProfileManagerTests.swift */; };
 		373AA7AF1721EDD477C36A2E /* AdaptiveDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B1D6AC3DD3547829FA5C6 /* AdaptiveDesign.swift */; };
 		480938FB2F583EA21B5A7DFF /* DeskMovementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC21B1B4381C77F514D391B /* DeskMovementController.swift */; };
 		4CB5D082ED032F6897E4B540 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F92516D6625FB652686064 /* NotificationService.swift */; };
 		4EB655F91A8B680725DE2E34 /* AppDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C2580000D4984ED269FAE7 /* AppDataStore.swift */; };
 		4FE119ED909BAAFF7BFD3DDE /* ConnectionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99ECA090ED4AB905C8C25754 /* ConnectionBadge.swift */; };
+		564DDFD5BA0EEE7F168C8F8C /* AutoStandServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77F168425B6286E10458897 /* AutoStandServiceTests.swift */; };
+		5CA164D2B8F6FB9C40EA7D03 /* DeskCalibrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED265C349644715D4AEEADD /* DeskCalibrationTests.swift */; };
+		5EEA93DFDE9E5E8A08574389 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239CB4DA919FA63D4C900518 /* AppVersion.swift */; };
 		5FC1724047EB0F0D0E690C08 /* Notification+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB3E25FD728CDDD7FA0D6A1 /* Notification+App.swift */; };
 		62B25A1730A335B602956C06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FA439F4F47D9D0D1EE7C6D /* AppDelegate.swift */; };
+		69DC8C8D567D256B0E87C751 /* HotKeyServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801AAD0618C7BF877AE39E82 /* HotKeyServiceTests.swift */; };
+		6D80AFD6660B19E57D076186 /* DeskProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A74CA65CE2D6513CA78A2 /* DeskProfileTests.swift */; };
+		756B4E0CDA40FC65453428F9 /* DeskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB5D495F76FE64A88EC7A8 /* DeskEntity.swift */; };
 		78E54A432EF142139464C6A9 /* DeskDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B279A7DE464DB03FCFA2C1 /* DeskDevice.swift */; };
+		7A0B1C18DDAFFCDDC9DFC678 /* HotkeyConflictChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315C56100EF17AC844595684 /* HotkeyConflictChecker.swift */; };
 		7F3C5DD2FD75F458BEA71A55 /* DeskPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B96EFDC3D4C6084433C6E16 /* DeskPeripheral.swift */; };
 		8045B8C3A82F61E72D6FFE1F /* QuickProfilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0537E9B7DB6967A064982477 /* QuickProfilePicker.swift */; };
 		87438687FFDA758FA65907CE /* FirstRunWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A9519C5FA4706675F903C0 /* FirstRunWelcomeView.swift */; };
 		8792100963BFA1EA173C41C8 /* HotkeyRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303290C27D1BD44C0C82F77 /* HotkeyRecorder.swift */; };
+		8A16B3C1035324E75E9D8687 /* KeyComboTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5014531172C391EA31973047 /* KeyComboTests.swift */; };
+		9216F23B5583914A824A19EF /* DeskProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCDBEE19D3A6A3F9BEAC9C /* DeskProtocolTests.swift */; };
 		94BBC6ED589C105EBCD21350 /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E418F3EB77AD912920C4703 /* HapticService.swift */; };
+		952B971FC17AE635CC78C0A1 /* UnitConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8644C6E45EE68CC374F1FC /* UnitConverterTests.swift */; };
 		9679F774E298A84F307FC798 /* IKEADeskControllerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6F81A564EDF7E8544591C3 /* IKEADeskControllerApp.swift */; };
 		96B224BEBD1B68E3AE40B448 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E30D8BAD16BACA316239954 /* Extensions.swift */; };
 		97E658F460B090422717D753 /* DeskProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8072956257145C6C7CA9A2C /* DeskProfile.swift */; };
 		9C9B477967E29BB80F231E08 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535EC16C718B0B418728E962 /* AppState.swift */; };
+		9CF5B453D7B4A3931132BA69 /* DeskDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BE07AAAEE5FB12A4369D1A /* DeskDeviceTests.swift */; };
 		9D95234F9C33171BCA7F3205 /* UnitConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482183E0FFDF603A35770201 /* UnitConverter.swift */; };
 		A1C05D8D7A3C115320C13FE4 /* AutoStandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9521AFB6584F3535287CE1A /* AutoStandService.swift */; };
+		A2444E0F3A77FEA35B03B084 /* FocusModeChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A75A69A0CC9F8A361C2FD1 /* FocusModeChecker.swift */; };
 		A446F789A783084DE4B73C00 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7AB59A60BC3DD7A3643725 /* SettingsView.swift */; };
 		A5AB864532BA780C29A83D3D /* View+AdaptiveGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4695DB8CB0F6C14BB58CA /* View+AdaptiveGlass.swift */; };
 		AF0B75AC19F3CF8786CDF582 /* AccessibilityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545F352EF30FCD2D3E2F8894 /* AccessibilityChecker.swift */; };
@@ -43,10 +58,12 @@
 		BF0F66775453B6CC6DB4C39F /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80793CEFD88B4069E4A9170 /* ProfileManager.swift */; };
 		BF142D27682D3D36E82BCB4A /* CalibrationWizard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D238D865EEACE6FCBFCCF /* CalibrationWizard.swift */; };
 		BF1850B2B30D6314D667EABA /* DeskIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A9D46A7A79A4F82207939C /* DeskIntents.swift */; };
+		C458DB668C7DB44F36D08E22 /* HotkeyConflictCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A0FCEFE95486B7221AE9D6 /* HotkeyConflictCheckerTests.swift */; };
 		C97600D7A0C73FEB1A5D4F32 /* SpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4993D42325D40B8027728F /* SpotlightIndexer.swift */; };
 		C9A48DB16D6089586070CCA0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0C15E9857443C25749A451 /* Constants.swift */; };
 		CAC0FBBDB97759CB23A9F343 /* DeskProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D547F57156DD87917455E960 /* DeskProtocol.swift */; };
 		CC14B6D910FF32CF485CA390 /* DeskControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F211F7FAC76918DF0E6EFB /* DeskControls.swift */; };
+		D17108F1EBD0C32864976D84 /* DataExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B32B6497FCDA3D9A3877C6 /* DataExtensionsTests.swift */; };
 		D1A7B955678FF8D7C6AF35F4 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB5AF9A11940BC009D65DA /* GeneralSettings.swift */; };
 		D9DCDB3CC74559142B114FD2 /* DeskConnectionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635E3E92CEDEB92079F88CA /* DeskConnectionSettings.swift */; };
 		E87E433BF1CCF5A6B6E71CBF /* AutoStandSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5397AEE7E94803F0AA4ED2C /* AutoStandSettings.swift */; };
@@ -57,9 +74,22 @@
 		FEAE7D26B4E781768B0D9A1E /* DeskPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A588E644D7EBF728D951BAB0 /* DeskPickerView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		128E2637946D31CA1EEBA074 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 339FDB2AE308B0596B937186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8544C6A9EADB7728D996D59B;
+			remoteInfo = IKEADeskController;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		02F92516D6625FB652686064 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		03BE07AAAEE5FB12A4369D1A /* DeskDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskDeviceTests.swift; sourceTree = "<group>"; };
 		0537E9B7DB6967A064982477 /* QuickProfilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickProfilePicker.swift; sourceTree = "<group>"; };
+		07EB5D495F76FE64A88EC7A8 /* DeskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskEntity.swift; sourceTree = "<group>"; };
+		08A0FCEFE95486B7221AE9D6 /* HotkeyConflictCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyConflictCheckerTests.swift; sourceTree = "<group>"; };
 		0E418F3EB77AD912920C4703 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
 		117820C807F5379AD6148957 /* DeskConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskConnectionState.swift; sourceTree = "<group>"; };
 		1303290C27D1BD44C0C82F77 /* HotkeyRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorder.swift; sourceTree = "<group>"; };
@@ -67,21 +97,33 @@
 		168E9D68F6239F0106A8B522 /* ProfileAppEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAppEntity.swift; sourceTree = "<group>"; };
 		1B96EFDC3D4C6084433C6E16 /* DeskPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskPeripheral.swift; sourceTree = "<group>"; };
 		21A9D46A7A79A4F82207939C /* DeskIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskIntents.swift; sourceTree = "<group>"; };
+		239CB4DA919FA63D4C900518 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
 		23B279A7DE464DB03FCFA2C1 /* DeskDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskDevice.swift; sourceTree = "<group>"; };
 		287B7DDFDB7CDF5C47FA1836 /* MenuBarPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPopover.swift; sourceTree = "<group>"; };
 		2A7AB59A60BC3DD7A3643725 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2B7C5E6808980430922332CF /* ProfileManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagerTests.swift; sourceTree = "<group>"; };
 		2BC21B1B4381C77F514D391B /* DeskMovementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskMovementController.swift; sourceTree = "<group>"; };
+		2ED265C349644715D4AEEADD /* DeskCalibrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskCalibrationTests.swift; sourceTree = "<group>"; };
+		315C56100EF17AC844595684 /* HotkeyConflictChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyConflictChecker.swift; sourceTree = "<group>"; };
+		341835C9CEAE0ECBFAB15B18 /* AutoStandSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoStandSchedulerTests.swift; sourceTree = "<group>"; };
 		3C0C15E9857443C25749A451 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3E30D8BAD16BACA316239954 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		482183E0FFDF603A35770201 /* UnitConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConverter.swift; sourceTree = "<group>"; };
 		499AD8837998788A9DFBF225 /* HotkeySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeySettings.swift; sourceTree = "<group>"; };
 		4B6F81A564EDF7E8544591C3 /* IKEADeskControllerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IKEADeskControllerApp.swift; sourceTree = "<group>"; };
+		5014531172C391EA31973047 /* KeyComboTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyComboTests.swift; sourceTree = "<group>"; };
 		535EC16C718B0B418728E962 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		53EB5AF9A11940BC009D65DA /* GeneralSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettings.swift; sourceTree = "<group>"; };
 		545F352EF30FCD2D3E2F8894 /* AccessibilityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityChecker.swift; sourceTree = "<group>"; };
 		553E3DBFC2EB5E838EA6D8F7 /* QuickDeskPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickDeskPicker.swift; sourceTree = "<group>"; };
+		58A75A69A0CC9F8A361C2FD1 /* FocusModeChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusModeChecker.swift; sourceTree = "<group>"; };
+		5C8644C6E45EE68CC374F1FC /* UnitConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConverterTests.swift; sourceTree = "<group>"; };
+		61B32B6497FCDA3D9A3877C6 /* DataExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensionsTests.swift; sourceTree = "<group>"; };
+		61EFC1A1F0945F3FBFBB7022 /* AutoStandScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoStandScheduler.swift; sourceTree = "<group>"; };
 		6EA16C9FB5E9871F0FC4592F /* DeskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskManager.swift; sourceTree = "<group>"; };
+		792A74CA65CE2D6513CA78A2 /* DeskProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskProfileTests.swift; sourceTree = "<group>"; };
 		7C4993D42325D40B8027728F /* SpotlightIndexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightIndexer.swift; sourceTree = "<group>"; };
+		801AAD0618C7BF877AE39E82 /* HotKeyServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyServiceTests.swift; sourceTree = "<group>"; };
 		886F0FB0B5649615A298A022 /* HotKeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyService.swift; sourceTree = "<group>"; };
 		931EBE327C1299F4C101F417 /* KeyCombo+KeyboardShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyCombo+KeyboardShortcut.swift"; sourceTree = "<group>"; };
 		9331EABF1CC8A33683DCEE80 /* IKEADeskController.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IKEADeskController.entitlements; sourceTree = "<group>"; };
@@ -97,11 +139,14 @@
 		BC17B75DB59E07B686672D7D /* PositionDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionDisplay.swift; sourceTree = "<group>"; };
 		C4A9519C5FA4706675F903C0 /* FirstRunWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunWelcomeView.swift; sourceTree = "<group>"; };
 		C5397AEE7E94803F0AA4ED2C /* AutoStandSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoStandSettings.swift; sourceTree = "<group>"; };
+		C77F168425B6286E10458897 /* AutoStandServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoStandServiceTests.swift; sourceTree = "<group>"; };
 		C8072956257145C6C7CA9A2C /* DeskProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskProfile.swift; sourceTree = "<group>"; };
 		C80D238D865EEACE6FCBFCCF /* CalibrationWizard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationWizard.swift; sourceTree = "<group>"; };
 		CAE1B21D541722950D70359F /* AboutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettings.swift; sourceTree = "<group>"; };
+		D0CCDBEE19D3A6A3F9BEAC9C /* DeskProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskProtocolTests.swift; sourceTree = "<group>"; };
 		D547F57156DD87917455E960 /* DeskProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskProtocol.swift; sourceTree = "<group>"; };
 		D9521AFB6584F3535287CE1A /* AutoStandService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoStandService.swift; sourceTree = "<group>"; };
+		DE398DA5783DCBB7265B766E /* IKEADeskControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IKEADeskControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7435C90685F446993D56B0A /* BrandTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandTheme.swift; sourceTree = "<group>"; };
 		E76B311B8F2A360D8AA0CE89 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		F7FA439F4F47D9D0D1EE7C6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,8 +186,28 @@
 			isa = PBXGroup;
 			children = (
 				FE182C4AA9F1B3543670558D /* IKEADeskController.app */,
+				DE398DA5783DCBB7265B766E /* IKEADeskControllerTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3F6D27FABE3505AA749050A7 /* IKEADeskControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				341835C9CEAE0ECBFAB15B18 /* AutoStandSchedulerTests.swift */,
+				C77F168425B6286E10458897 /* AutoStandServiceTests.swift */,
+				61B32B6497FCDA3D9A3877C6 /* DataExtensionsTests.swift */,
+				2ED265C349644715D4AEEADD /* DeskCalibrationTests.swift */,
+				03BE07AAAEE5FB12A4369D1A /* DeskDeviceTests.swift */,
+				792A74CA65CE2D6513CA78A2 /* DeskProfileTests.swift */,
+				D0CCDBEE19D3A6A3F9BEAC9C /* DeskProtocolTests.swift */,
+				08A0FCEFE95486B7221AE9D6 /* HotkeyConflictCheckerTests.swift */,
+				801AAD0618C7BF877AE39E82 /* HotKeyServiceTests.swift */,
+				5014531172C391EA31973047 /* KeyComboTests.swift */,
+				2B7C5E6808980430922332CF /* ProfileManagerTests.swift */,
+				5C8644C6E45EE68CC374F1FC /* UnitConverterTests.swift */,
+			);
+			path = IKEADeskControllerTests;
 			sourceTree = "<group>";
 		};
 		4360A549CBD3EC9BB2CC6F76 /* App */ = {
@@ -173,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				09F5D4B84F78D41781C97D00 /* IKEADeskController */,
+				3F6D27FABE3505AA749050A7 /* IKEADeskControllerTests */,
 				2B97BFA078DEEF1F4C3D5902 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -195,6 +261,7 @@
 		60F20F278096498EC0923AC2 /* Intents */ = {
 			isa = PBXGroup;
 			children = (
+				07EB5D495F76FE64A88EC7A8 /* DeskEntity.swift */,
 				21A9D46A7A79A4F82207939C /* DeskIntents.swift */,
 				168E9D68F6239F0106A8B522 /* ProfileAppEntity.swift */,
 			);
@@ -227,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				A8C2580000D4984ED269FAE7 /* AppDataStore.swift */,
+				61EFC1A1F0945F3FBFBB7022 /* AutoStandScheduler.swift */,
 				D9521AFB6584F3535287CE1A /* AutoStandService.swift */,
 				0E418F3EB77AD912920C4703 /* HapticService.swift */,
 				1303290C27D1BD44C0C82F77 /* HotkeyRecorder.swift */,
@@ -253,8 +321,11 @@
 			children = (
 				545F352EF30FCD2D3E2F8894 /* AccessibilityChecker.swift */,
 				B29B1D6AC3DD3547829FA5C6 /* AdaptiveDesign.swift */,
+				239CB4DA919FA63D4C900518 /* AppVersion.swift */,
 				E7435C90685F446993D56B0A /* BrandTheme.swift */,
 				3E30D8BAD16BACA316239954 /* Extensions.swift */,
+				58A75A69A0CC9F8A361C2FD1 /* FocusModeChecker.swift */,
+				315C56100EF17AC844595684 /* HotkeyConflictChecker.swift */,
 				931EBE327C1299F4C101F417 /* KeyCombo+KeyboardShortcut.swift */,
 				9CB3E25FD728CDDD7FA0D6A1 /* Notification+App.swift */,
 				482183E0FFDF603A35770201 /* UnitConverter.swift */,
@@ -266,6 +337,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0DEFA608F4DD87D7B19AC30E /* IKEADeskControllerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2F4A8454C38D7C83672D92E6 /* Build configuration list for PBXNativeTarget "IKEADeskControllerTests" */;
+			buildPhases = (
+				998621C38D8FFC18116272C2 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				97CE82D85F256CAF24BC0619 /* PBXTargetDependency */,
+			);
+			name = IKEADeskControllerTests;
+			packageProductDependencies = (
+			);
+			productName = IKEADeskControllerTests;
+			productReference = DE398DA5783DCBB7265B766E /* IKEADeskControllerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8544C6A9EADB7728D996D59B /* IKEADeskController */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 770C4409B7750C6A53089463 /* Build configuration list for PBXNativeTarget "IKEADeskController" */;
@@ -293,6 +382,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					0DEFA608F4DD87D7B19AC30E = {
+						DevelopmentTeam = "";
+					};
 					8544C6A9EADB7728D996D59B = {
 						DevelopmentTeam = "";
 					};
@@ -313,6 +405,7 @@
 			projectRoot = "";
 			targets = (
 				8544C6A9EADB7728D996D59B /* IKEADeskController */,
+				0DEFA608F4DD87D7B19AC30E /* IKEADeskControllerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -339,6 +432,8 @@
 				4EB655F91A8B680725DE2E34 /* AppDataStore.swift in Sources */,
 				62B25A1730A335B602956C06 /* AppDelegate.swift in Sources */,
 				9C9B477967E29BB80F231E08 /* AppState.swift in Sources */,
+				5EEA93DFDE9E5E8A08574389 /* AppVersion.swift in Sources */,
+				2EC46995524648786D3F6F82 /* AutoStandScheduler.swift in Sources */,
 				A1C05D8D7A3C115320C13FE4 /* AutoStandService.swift in Sources */,
 				E87E433BF1CCF5A6B6E71CBF /* AutoStandSettings.swift in Sources */,
 				0D5F2E60C7E3F219B2B86A34 /* BrandTheme.swift in Sources */,
@@ -349,6 +444,7 @@
 				097014070D36122B76A7C201 /* DeskConnectionState.swift in Sources */,
 				CC14B6D910FF32CF485CA390 /* DeskControls.swift in Sources */,
 				78E54A432EF142139464C6A9 /* DeskDevice.swift in Sources */,
+				756B4E0CDA40FC65453428F9 /* DeskEntity.swift in Sources */,
 				BF1850B2B30D6314D667EABA /* DeskIntents.swift in Sources */,
 				251E20C698FFF0859FE44E19 /* DeskManager.swift in Sources */,
 				480938FB2F583EA21B5A7DFF /* DeskMovementController.swift in Sources */,
@@ -358,9 +454,11 @@
 				CAC0FBBDB97759CB23A9F343 /* DeskProtocol.swift in Sources */,
 				96B224BEBD1B68E3AE40B448 /* Extensions.swift in Sources */,
 				87438687FFDA758FA65907CE /* FirstRunWelcomeView.swift in Sources */,
+				A2444E0F3A77FEA35B03B084 /* FocusModeChecker.swift in Sources */,
 				D1A7B955678FF8D7C6AF35F4 /* GeneralSettings.swift in Sources */,
 				94BBC6ED589C105EBCD21350 /* HapticService.swift in Sources */,
 				E9BBB5CF017433D9A0CE6F0D /* HotKeyService.swift in Sources */,
+				7A0B1C18DDAFFCDDC9DFC678 /* HotkeyConflictChecker.swift in Sources */,
 				8792100963BFA1EA173C41C8 /* HotkeyRecorder.swift in Sources */,
 				16AEEC1ADD049BD75F82490D /* HotkeySettings.swift in Sources */,
 				9679F774E298A84F307FC798 /* IKEADeskControllerApp.swift in Sources */,
@@ -383,9 +481,55 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		998621C38D8FFC18116272C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28CCA40E49A3FC74DC6F87F7 /* AutoStandSchedulerTests.swift in Sources */,
+				564DDFD5BA0EEE7F168C8F8C /* AutoStandServiceTests.swift in Sources */,
+				D17108F1EBD0C32864976D84 /* DataExtensionsTests.swift in Sources */,
+				5CA164D2B8F6FB9C40EA7D03 /* DeskCalibrationTests.swift in Sources */,
+				9CF5B453D7B4A3931132BA69 /* DeskDeviceTests.swift in Sources */,
+				6D80AFD6660B19E57D076186 /* DeskProfileTests.swift in Sources */,
+				9216F23B5583914A824A19EF /* DeskProtocolTests.swift in Sources */,
+				69DC8C8D567D256B0E87C751 /* HotKeyServiceTests.swift in Sources */,
+				C458DB668C7DB44F36D08E22 /* HotkeyConflictCheckerTests.swift in Sources */,
+				8A16B3C1035324E75E9D8687 /* KeyComboTests.swift in Sources */,
+				3271313C547DB3C86EB4F6C6 /* ProfileManagerTests.swift in Sources */,
+				952B971FC17AE635CC78C0A1 /* UnitConverterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		97CE82D85F256CAF24BC0619 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8544C6A9EADB7728D996D59B /* IKEADeskController */;
+			targetProxy = 128E2637946D31CA1EEBA074 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		022DBF8C84178E9EE97CDBE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexandrustefan.ikea-desk-controller.tests";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stance.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Stance";
+			};
+			name = Debug;
+		};
 		9226E848644EEE6D80BA6F8D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -498,6 +642,25 @@
 			};
 			name = Release;
 		};
+		D1BC89DF604160E44F941E69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexandrustefan.ikea-desk-controller.tests";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stance.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Stance";
+			};
+			name = Release;
+		};
 		F96BE5AF38E894EFAD33CA12 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -566,6 +729,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2F4A8454C38D7C83672D92E6 /* Build configuration list for PBXNativeTarget "IKEADeskControllerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				022DBF8C84178E9EE97CDBE7 /* Debug */,
+				D1BC89DF604160E44F941E69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		348CC1C1ED4BE684F31FB7CF /* Build configuration list for PBXProject "IKEADeskController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

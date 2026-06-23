@@ -125,6 +125,7 @@ struct SettingsDetailScaffold<Content: View>: View {
             .padding(28)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .adaptiveScrollEdgeEffect()
         .background {
             if #available(macOS 26, *) {
                 Color.clear
@@ -134,3 +135,15 @@ struct SettingsDetailScaffold<Content: View>: View {
         }
     }
 }
+
+extension View {
+    @ViewBuilder
+    func adaptiveScrollEdgeEffect() -> some View {
+        if #available(macOS 26, *) {
+            self.scrollEdgeEffectStyle(.soft, for: .top)
+        } else {
+            self
+        }
+    }
+}
+

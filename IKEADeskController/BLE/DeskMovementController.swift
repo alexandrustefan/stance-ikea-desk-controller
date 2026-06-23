@@ -9,6 +9,8 @@ final class DeskMovementController {
 
     private let holdRepeatInterval: Duration = .milliseconds(500)
 
+    var onArrived: (() -> Void)?
+
     var useLegacyFallback = false
 
     func attach(_ peripheral: DeskPeripheral) {
@@ -118,6 +120,7 @@ final class DeskMovementController {
 
             deskPeripheral.writeCommand(DeskCommand.stop)
             deskPeripheral.writeReferenceInput(DeskCommand.referenceInputStop)
+            onArrived?()
         }
 
         await moveTask?.value
@@ -164,6 +167,7 @@ final class DeskMovementController {
             }
 
             deskPeripheral.writeCommand(DeskCommand.stop)
+            onArrived?()
         }
 
         await moveTask?.value

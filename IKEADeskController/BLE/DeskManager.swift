@@ -11,6 +11,7 @@ final class DeskManager: NSObject {
     private(set) var bluetoothState: CBManagerState = .unknown
     private(set) var isManualScanning = false
     private(set) var userPausedAutoReconnect = false
+    private(set) var connectionErrorMessage: String?
 
     let movement = DeskMovementController()
 
@@ -185,16 +186,26 @@ final class DeskManager: NSObject {
         desk.onPositionUpdate = { [weak self] position in
             Task { @MainActor in
                 self?.currentPosition = position
+                if let appState = AppState.current {
+                    SpotlightIndexer.indexDesk(appState: appState)
+                }
+            }
+        }
+        desk.onGATTReady = { [weak self] in
+            Task { @MainActor in
+                guard let self else { return }
+                self.connectionState = .connected
+                self.connectionErrorMessage = nil
+                self.reconnectAttempt = 0
+                self.onDeskConnected?(peripheral)
             }
         }
         deskPeripheral = desk
         movement.attach(desk)
+        connectionState = .connecting
         bleQueue.async {
             desk.discoverServices()
         }
-        connectionState = .connected
-        reconnectAttempt = 0
-        onDeskConnected?(peripheral)
     }
 
     private func scheduleReconnect() {
@@ -267,6 +278,22 @@ final class DeskManager: NSObject {
         }
         return DeskProtocol.matchesDeskName(name)
     }
+
+    private nonisolated static func connectionErrorMessage(for error: Error?) -> String {
+        if let cbError = error as? CBError {
+            switch cbError.code {
+            case .connectionTimeout:
+                return "Connection timed out. Move closer to your desk and try again."
+            case .peerRemovedPairingInformation:
+                return "Pairing information changed. Remove the desk in Settings and pair again."
+            case .peripheralDisconnected:
+                return "Desk disconnected. Another device may be connected — close the IKEA or LINAK app on your phone."
+            default:
+                break
+            }
+        }
+        return "Could not connect. Disconnect other apps from your desk (IKEA Home smart, LINAK) and try again."
+    }
 }
 
 extension DeskManager: CBCentralManagerDelegate {
@@ -312,7 +339,10 @@ extension DeskManager: CBCentralManagerDelegate {
         didFailToConnect peripheral: CBPeripheral,
         error: Error?
     ) {
+        let message = Self.connectionErrorMessage(for: error)
         Task { @MainActor in
+            connectionErrorMessage = message
+            connectionState = .disconnected
             teardownConnection()
             scheduleReconnect()
         }

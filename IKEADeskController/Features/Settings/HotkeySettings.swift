@@ -3,10 +3,17 @@ import SwiftUI
 struct HotkeySettings: View {
     @Bindable var appState: AppState
     @State private var recorder = HotkeyRecorder()
+    @State private var conflictMessage: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             permissionBanner
+
+            if let conflictMessage {
+                Text(conflictMessage)
+                    .font(.caption)
+                    .foregroundStyle(.orange)
+            }
 
             if appState.profileManager.activeProfile != nil {
                 VStack(spacing: 0) {
@@ -22,7 +29,7 @@ struct HotkeySettings: View {
                     rowDivider
                     hotkeyRow("Emergency Stop", action: .emergencyStop)
                 }
-                .glassCard(contentPadding: 0, cornerRadius: 14)
+                .glassCard(contentPadding: 0, cornerRadius: 16)
             }
 
             Text("Click Record, then press a key combination. Press Esc to cancel. Up/Down hotkeys repeat while held.")
@@ -56,7 +63,7 @@ struct HotkeySettings: View {
                     .buttonStyle(AdaptiveSecondaryButtonStyle())
                 }
             }
-            .glassCard(contentPadding: 16, cornerRadius: 14)
+            .glassCard(contentPadding: 16, cornerRadius: 16)
         }
     }
 
@@ -72,6 +79,7 @@ struct HotkeySettings: View {
             HStack(alignment: .center) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
+                        .font(.body.weight(.semibold))
                     if let hint {
                         Text(hint)
                             .font(.caption2)
@@ -85,6 +93,12 @@ struct HotkeySettings: View {
                     isRecording: recorder.isRecording && recorder.recordingActionID == actionID,
                     onStartRecording: {
                         recorder.startRecording(actionID: actionID) { captured in
+                            guard let hotkeys = appState.profileManager.activeProfile?.hotkeys else { return }
+                            if HotkeyConflictChecker.hasConflict(for: captured, in: hotkeys, excluding: action) {
+                                conflictMessage = "That shortcut is already used by another action."
+                                return
+                            }
+                            conflictMessage = nil
                             appState.updateHotkey(action, combo: captured)
                         }
                     },

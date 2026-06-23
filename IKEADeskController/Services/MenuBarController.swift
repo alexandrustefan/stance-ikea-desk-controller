@@ -8,6 +8,8 @@ final class MenuBarController: NSObject, NSPopoverDelegate {
     private let popover: NSPopover
     private var observationTask: Task<Void, Never>?
     private var globalRightClickMonitor: Any?
+    private var localOutsideClickMonitor: Any?
+    private var globalOutsideClickMonitor: Any?
     private var lastContextMenuShownAt: TimeInterval = 0
 
     init(appState: AppState) {
@@ -105,11 +107,11 @@ final class MenuBarController: NSObject, NSPopoverDelegate {
 
         if let window = host.view.window {
             window.makeKeyAndOrderFront(nil)
-            window.level = .floating
         }
     }
 
     private func closePopover() {
+        stopOutsideClickMonitoring()
         popover.performClose(nil)
         restoreActivationPolicyIfNeeded()
     }
@@ -125,8 +127,55 @@ final class MenuBarController: NSObject, NSPopoverDelegate {
         }
     }
 
+    func popoverDidShow(_ notification: Notification) {
+        startOutsideClickMonitoring()
+    }
+
     func popoverDidClose(_ notification: Notification) {
+        stopOutsideClickMonitoring()
         restoreActivationPolicyIfNeeded()
+    }
+
+    /// Dismiss when clicking outside the popover (applicationDefined does not do this automatically).
+    private func startOutsideClickMonitoring() {
+        stopOutsideClickMonitoring()
+
+        localOutsideClickMonitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+            guard let self, popover.isShown else { return event }
+            guard shouldDismissPopover(for: event) else { return event }
+            closePopover()
+            return event
+        }
+
+        globalOutsideClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+            Task { @MainActor in
+                guard let self, self.popover.isShown else { return }
+                guard self.shouldDismissPopover(for: event) else { return }
+                self.closePopover()
+            }
+        }
+    }
+
+    private func stopOutsideClickMonitoring() {
+        if let localOutsideClickMonitor {
+            NSEvent.removeMonitor(localOutsideClickMonitor)
+            self.localOutsideClickMonitor = nil
+        }
+        if let globalOutsideClickMonitor {
+            NSEvent.removeMonitor(globalOutsideClickMonitor)
+            self.globalOutsideClickMonitor = nil
+        }
+    }
+
+    private func shouldDismissPopover(for event: NSEvent) -> Bool {
+        if isEventOnStatusItem(event) { return false }
+        if isClickInsidePopover(event) { return false }
+        return true
+    }
+
+    private func isClickInsidePopover(_ event: NSEvent) -> Bool {
+        guard let popoverWindow = popover.contentViewController?.view.window else { return false }
+        return popoverWindow.frame.contains(NSEvent.mouseLocation)
     }
 
     func updateLabel() {

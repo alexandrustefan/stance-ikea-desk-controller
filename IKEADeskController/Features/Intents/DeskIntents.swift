@@ -11,6 +11,17 @@ enum DeskPositionIntentValue: String, AppEnum {
   ]
 }
 
+enum HeightUnit: String, AppEnum {
+    case centimeters
+    case inches
+
+    nonisolated(unsafe) static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Unit")
+    nonisolated(unsafe) static var caseDisplayRepresentations: [HeightUnit: DisplayRepresentation] = [
+        .centimeters: "Centimeters",
+        .inches: "Inches",
+    ]
+}
+
 struct MoveDeskToPositionIntent: AppIntent {
   nonisolated(unsafe) static var title: LocalizedStringResource = "Move Desk to Position"
   nonisolated(unsafe) static var description = IntentDescription("Move the desk to sit or stand in the active profile.")
@@ -37,13 +48,16 @@ struct MoveDeskToPositionIntent: AppIntent {
 
 struct MoveDeskToHeightIntent: AppIntent {
   nonisolated(unsafe) static var title: LocalizedStringResource = "Move Desk to Height"
-  nonisolated(unsafe) static var description = IntentDescription("Move the desk to a specific height in centimeters.")
+  nonisolated(unsafe) static var description = IntentDescription("Move the desk to a specific height.")
 
-  @Parameter(title: "Height (cm)")
+  @Parameter(title: "Height")
   var height: Double
 
+  @Parameter(title: "Unit", default: .centimeters)
+  var unit: HeightUnit
+
   static var parameterSummary: some ParameterSummary {
-    Summary("Move desk to \(\.$height) cm")
+    Summary("Move desk to \(\.$height) \(\.$unit)")
   }
 
   @MainActor
@@ -51,8 +65,13 @@ struct MoveDeskToHeightIntent: AppIntent {
     guard let appState = AppState.current else {
       return .result(dialog: "\(AppConstants.appName) is not available.")
     }
-    await appState.moveToHeight(Float(height))
-    return .result(dialog: "Moving desk to \(Int(height)) centimeters.")
+    let heightCM: Float = switch unit {
+    case .centimeters: Float(height)
+    case .inches: Float(height).convertToCentimeters()
+    }
+    await appState.moveToHeight(heightCM)
+    let label = UnitConverter.formatHeight(heightCM, useMetric: unit == .centimeters)
+    return .result(dialog: "Moving desk to \(label).")
   }
 }
 
@@ -76,12 +95,22 @@ struct NudgeDeskIntent: AppIntent {
 
 struct GetDeskHeightIntent: AppIntent {
   nonisolated(unsafe) static var title: LocalizedStringResource = "Get Desk Height"
-  nonisolated(unsafe) static var description = IntentDescription("Returns the current desk height in centimeters.")
+  nonisolated(unsafe) static var description = IntentDescription("Returns the current desk height.")
+
+  @Parameter(title: "Unit", default: .centimeters)
+  var unit: HeightUnit
 
   @MainActor
-  func perform() async throws -> some IntentResult & ReturnsValue<Double> {
-    let height = AppState.current?.currentHeightCM ?? 0
-    return .result(value: height, dialog: "Desk height is \(Int(height)) centimeters.")
+  func perform() async throws -> some IntentResult & ReturnsValue<Double> & ProvidesDialog {
+    let heightCM = Float(AppState.current?.currentHeightCM ?? 0)
+    let useMetric = unit == .centimeters
+    let formatted = UnitConverter.formatHeight(heightCM, useMetric: useMetric)
+    let value: Double = switch unit {
+    case .centimeters: Double(heightCM)
+    case .inches: Double(heightCM.convertToInches())
+    }
+    let profile = AppState.current?.activeProfileName ?? "None"
+    return .result(value: value, dialog: "Desk height is \(formatted) (\(profile) profile).")
   }
 }
 
@@ -112,12 +141,15 @@ struct SwitchProfileIntent: AppIntent {
 
 struct GetActiveProfileIntent: AppIntent {
   nonisolated(unsafe) static var title: LocalizedStringResource = "Get Active Profile"
-  nonisolated(unsafe) static var description = IntentDescription("Returns the name of the active desk profile.")
+  nonisolated(unsafe) static var description = IntentDescription("Returns the active desk profile with sit and stand heights.")
 
   @MainActor
   func perform() async throws -> some IntentResult & ReturnsValue<String> {
-    let name = AppState.current?.activeProfileName ?? "None"
-    return .result(value: name, dialog: "Active profile is \(name).")
+    guard let profile = AppState.current?.profileManager.activeProfile else {
+      return .result(value: "None")
+    }
+    let summary = "\(profile.name) — sit \(Int(profile.sitHeight)) cm, stand \(Int(profile.standHeight)) cm"
+    return .result(value: summary)
   }
 }
 
@@ -127,8 +159,13 @@ struct GetStandingSessionSummaryIntent: AppIntent {
 
   @MainActor
   func perform() async throws -> some IntentResult & ReturnsValue<String> {
-    let summary = AppState.current?.standingSessionSummary ?? "0m standing today"
-    return .result(value: summary, dialog: "\(summary).")
+    guard let appState = AppState.current else {
+      return .result(value: "0m")
+    }
+    let summary = appState.standingSessionSummary
+    let sessions = appState.autoStandService.todaySessionCount
+    let full = "\(summary) across \(sessions) session\(sessions == 1 ? "" : "s")"
+    return .result(value: full)
   }
 }
 
@@ -140,17 +177,45 @@ struct IKEADeskShortcuts: AppShortcutsProvider {
         "Move my desk to \(\.$position) with \(.applicationName)",
         "Stand up with \(.applicationName)",
         "Sit down with \(.applicationName)",
+        "Move desk to \(\.$position) in \(.applicationName)",
       ],
       shortTitle: "Move Desk",
       systemImageName: "desk.fill"
     )
     AppShortcut(
+      intent: GetDeskHeightIntent(),
+      phrases: [
+        "What's my desk height in \(.applicationName)",
+        "How high is my desk in \(.applicationName)",
+      ],
+      shortTitle: "Desk Height",
+      systemImageName: "ruler"
+    )
+    AppShortcut(
+      intent: NudgeDeskIntent(),
+      phrases: [
+        "Nudge my desk \(\.$direction) with \(.applicationName)",
+      ],
+      shortTitle: "Nudge Desk",
+      systemImageName: "arrow.up.arrow.down"
+    )
+    AppShortcut(
       intent: SwitchProfileIntent(),
       phrases: [
         "Switch to \(\.$profile) in \(.applicationName)",
+        "Change desk profile to \(\.$profile) in \(.applicationName)",
       ],
       shortTitle: "Switch Profile",
       systemImageName: "person.crop.rectangle.stack"
+    )
+    AppShortcut(
+      intent: GetStandingSessionSummaryIntent(),
+      phrases: [
+        "How long have I been standing today in \(.applicationName)",
+        "Standing summary in \(.applicationName)",
+      ],
+      shortTitle: "Standing Summary",
+      systemImageName: "figure.stand"
     )
   }
 }

@@ -3,11 +3,10 @@ import Foundation
 
 enum AccessibilityChecker {
     static func isInputMonitoringTrusted(prompt: Bool) -> Bool {
+        if CGPreflightListenEventAccess() { return true }
         if prompt {
-            return AXIsProcessTrustedWithOptions([
-                "kAXTrustedCheckOptionPrompt": true,
-            ] as CFDictionary)
+            CGRequestListenEventAccess()
         }
-        return AXIsProcessTrusted()
+        return CGPreflightListenEventAccess()
     }
 }

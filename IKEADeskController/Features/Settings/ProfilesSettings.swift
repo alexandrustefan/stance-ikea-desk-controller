@@ -7,76 +7,150 @@ struct ProfilesSettings: View {
     @State private var exportDocument: ProfileExportDocument?
 
     private var profiles: [DeskProfile] {
-        guard let deskId = appState.activeDesk?.id else {
+        guard let desk = appState.activeDesk else {
             return appState.profileManager.profiles
         }
-        let filtered = appState.profileManager.profiles(for: deskId)
-        return filtered.isEmpty ? appState.profileManager.profiles : filtered
+        let filtered = appState.profileManager.profiles(for: desk.id)
+        if filtered.isEmpty {
+            let defaultProfile = appState.profileManager.createProfile(
+                name: "Work",
+                deskDeviceId: desk.id,
+                sitHeight: 72,
+                standHeight: 112
+            )
+            return [defaultProfile]
+        }
+        return filtered
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            managementBar
-
-            Form {
-                if let desk = appState.activeDesk {
-                    Section {
-                        LabeledContent("Desk") {
-                            Text(desk.title)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
-
-                Section {
-                    Picker("Active profile", selection: activeProfileIDBinding) {
-                        ForEach(profiles) { profile in
-                            Label(profile.name, systemImage: profile.icon)
-                                .tag(profile.id)
-                        }
-                    }
-                }
-
-                if appState.profileManager.activeProfile != nil {
-                    Section("Profile") {
-                        TextField("Name", text: nameBinding)
-
-                        Picker("Icon", selection: iconBinding) {
-                            ForEach(ProfileIconOptions.all, id: \.symbol) { option in
-                                Label(option.label, systemImage: option.symbol)
-                                    .tag(option.symbol)
+        VStack(alignment: .leading, spacing: 20) {
+            // Profile Management Card
+            VStack(alignment: .leading, spacing: 12) {
+                managementToolbar
+                
+                profilesTilesList
+            }
+            .glassCard(contentPadding: 16, cornerRadius: 16)
+            
+            // Profile Editor Section
+            if let activeProfile = appState.profileManager.activeProfile {
+                VStack(alignment: .leading, spacing: 18) {
+                    
+                    // Profile Info & Icon selection
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Profile Info")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                        
+                        VStack(alignment: .leading, spacing: 14) {
+                            HStack(spacing: 12) {
+                                Text("Name")
+                                    .font(.body.weight(.semibold))
+                                    .foregroundStyle(.secondary)
+                                
+                                TextField("Profile Name", text: nameBinding)
+                                    .font(.body.weight(.semibold))
+                                    .textFieldStyle(.plain)
+                                    .foregroundStyle(.primary)
+                            }
+                            
+                            Divider()
+                            
+                            // Horizontal Grid of icons
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Profile Icon")
+                                    .font(.caption.weight(.semibold))
+                                    .foregroundStyle(.secondary)
+                                
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 8) {
+                                        ForEach(ProfileIconOptions.all, id: \.symbol) { option in
+                                            let isSelected = activeProfile.icon == option.symbol
+                                            Button {
+                                                iconBinding.wrappedValue = option.symbol
+                                            } label: {
+                                                ZStack {
+                                                    Circle()
+                                                        .fill(isSelected ? BrandTheme.accent : Color.primary.opacity(0.04))
+                                                        .frame(width: 34, height: 34)
+                                                    
+                                                    Image(systemName: option.symbol)
+                                                        .font(.system(size: 14))
+                                                        .foregroundStyle(isSelected ? .white : .primary)
+                                                }
+                                                .help(option.label)
+                                            }
+                                            .buttonStyle(.plain)
+                                        }
+                                    }
+                                    .padding(.vertical, 2)
+                                }
                             }
                         }
+                        .glassCard(contentPadding: 14, cornerRadius: 16)
                     }
-
-                    Section("Sit & stand") {
-                        heightRow(label: "Sit height", binding: sitHeightBinding)
-                        heightRow(label: "Stand height", binding: standHeightBinding)
+                    
+                    // Sit & Stand heights
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Default Heights")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                        
+                        VStack(spacing: 0) {
+                            heightFieldRow(label: "Sitting height", binding: sitHeightBinding)
+                            Divider().padding(.leading, 16)
+                            heightFieldRow(label: "Standing height", binding: standHeightBinding)
+                        }
+                        .glassCard(contentPadding: 0, cornerRadius: 16)
                     }
-
-                    Section {
-                        if customPositionsBinding.wrappedValue.isEmpty {
-                            Text("No custom positions yet.")
-                                .foregroundStyle(.secondary)
-                        } else {
-                            ForEach(customPositionsBinding) { $position in
-                                customPositionRow($position)
+                    
+                    // Custom Position Presets
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Custom Positions")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                        
+                        VStack(spacing: 0) {
+                            if customPositionsBinding.wrappedValue.isEmpty {
+                                Text("No custom positions yet.")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .padding(.vertical, 20)
+                            } else {
+                                ForEach(customPositionsBinding) { $position in
+                                    customPositionRedesignedRow($position)
+                                    if position.id != customPositionsBinding.wrappedValue.last?.id {
+                                        Divider().padding(.leading, 64)
+                                    }
+                                }
                             }
+                            
+                            Divider()
+                            
+                            Button {
+                                addCustomPosition()
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Label("Add custom position", systemImage: "plus")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(BrandTheme.accent)
+                                    Spacer()
+                                }
+                                .padding(.vertical, 12)
+                            }
+                            .buttonStyle(.plain)
                         }
-
-                        Button {
-                            addCustomPosition()
-                        } label: {
-                            Label("Add custom position", systemImage: "plus")
-                        }
-                    } header: {
-                        Text("Custom positions")
-                    } footer: {
+                        .glassCard(contentPadding: 0, cornerRadius: 16)
+                        
                         Text("Shown as small chips below Sit & Stand in the menu bar popover.")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
                     }
                 }
             }
-            .formStyle(.grouped)
         }
         .fileExporter(
             isPresented: Binding(
@@ -95,97 +169,212 @@ struct ProfilesSettings: View {
         }
     }
 
-    // MARK: - Toolbar
+    // MARK: - Subviews
 
-    private var managementBar: some View {
-        HStack(spacing: 8) {
-            Button { createProfile() } label: {
-                Label("New", systemImage: "plus")
-            }
-
-            Button {
-                if let active = appState.profileManager.activeProfile {
-                    appState.profileManager.duplicateProfile(active)
-                }
-            } label: {
-                Label("Duplicate", systemImage: "plus.square.on.square")
-            }
-
-            Button(role: .destructive) {
-                if let active = appState.profileManager.activeProfile {
-                    appState.profileManager.deleteProfile(active)
-                }
-            } label: {
-                Label("Delete", systemImage: "trash")
-            }
-            .disabled(profiles.count <= 1)
-
+    private var managementToolbar: some View {
+        HStack {
+            Text("Select Profile")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+            
             Spacer()
-
-            Button {
-                if let data = try? appState.profileManager.exportJSON() {
-                    exportDocument = ProfileExportDocument(data: data)
+            
+            HStack(spacing: 12) {
+                Button(action: createProfile) {
+                    Label("New", systemImage: "plus")
                 }
-            } label: {
-                Label("Export", systemImage: "square.and.arrow.up")
-            }
+                .buttonStyle(.plain)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(BrandTheme.accent)
+                
+                Button {
+                    if let active = appState.profileManager.activeProfile {
+                        appState.profileManager.duplicateProfile(active)
+                    }
+                } label: {
+                    Label("Duplicate", systemImage: "plus.square.on.square")
+                }
+                .buttonStyle(.plain)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .disabled(appState.profileManager.activeProfile == nil)
 
-            Button { showImporter = true } label: {
-                Label("Import", systemImage: "square.and.arrow.down")
+                Button(role: .destructive) {
+                    if let active = appState.profileManager.activeProfile {
+                        appState.profileManager.deleteProfile(active)
+                    }
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+                .buttonStyle(.plain)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .disabled(profiles.count <= 1)
+                
+                Text("|").foregroundStyle(.tertiary).font(.subheadline)
+                
+                Button {
+                    if let data = try? appState.profileManager.exportJSON() {
+                        exportDocument = ProfileExportDocument(data: data)
+                    }
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                        .help("Export Profiles")
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(.secondary)
+                
+                Button { showImporter = true } label: {
+                    Image(systemName: "square.and.arrow.down")
+                        .help("Import Profiles")
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(.secondary)
             }
         }
-        .buttonStyle(.bordered)
-        .controlSize(.regular)
     }
 
-    // MARK: - Rows
+    private var profilesTilesList: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 12) {
+                ForEach(profiles) { profile in
+                    let isActive = profile.id == appState.profileManager.activeProfileID
+                    Button {
+                        appState.profileManager.setActiveProfile(profile)
+                        appState.registerHotkeys()
+                    } label: {
+                        VStack(alignment: .leading, spacing: 6) {
+                            HStack {
+                                Image(systemName: profile.icon)
+                                    .font(.title3)
+                                    .foregroundStyle(isActive ? .white : BrandTheme.accent)
+                                
+                                Spacer()
+                                
+                                if isActive {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .font(.caption)
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                            
+                            Text(profile.name)
+                                .font(.body.weight(.bold))
+                                .foregroundStyle(isActive ? .white : .primary)
+                                .lineLimit(1)
+                            
+                            Text("Sit: \(Int(profile.sitHeight))cm · Stand: \(Int(profile.standHeight))cm")
+                                .font(.caption2)
+                                .foregroundStyle(isActive ? .white.opacity(0.8) : .secondary)
+                        }
+                        .frame(width: 140, height: 74)
+                        .padding(12)
+                        .background {
+                            if isActive {
+                                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                    .fill(BrandTheme.accent)
+                            } else {
+                                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                    .fill(Color.primary.opacity(0.04))
+                            }
+                        }
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .strokeBorder(isActive ? Color.clear : Color.primary.opacity(0.06), lineWidth: 1)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.vertical, 2)
+        }
+    }
 
-    private func heightRow(label: String, binding: Binding<Float>) -> some View {
-        LabeledContent(label) {
-            HStack(spacing: 6) {
+    private func heightFieldRow(label: String, binding: Binding<Float>) -> some View {
+        HStack {
+            Text(label)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(.primary)
+            
+            Spacer()
+            
+            HStack(spacing: 8) {
                 TextField("cm", value: binding, format: .number.precision(.fractionLength(0)))
-                    .textFieldStyle(.roundedBorder)
-                    .frame(width: 56)
+                    .textFieldStyle(.plain)
+                    .frame(width: 44)
                     .multilineTextAlignment(.trailing)
+                    .font(.body.weight(.bold))
+                    .foregroundStyle(BrandTheme.accent)
+                
                 Text("cm")
                     .foregroundStyle(.secondary)
-                    .frame(width: 24, alignment: .leading)
+                    .font(.subheadline)
             }
         }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
     }
 
-    private func customPositionRow(_ position: Binding<CustomPosition>) -> some View {
-        HStack(spacing: 10) {
-            Picker("", selection: position.icon) {
+    private func customPositionRedesignedRow(_ position: Binding<CustomPosition>) -> some View {
+        HStack(spacing: 12) {
+            // Icon Picker Menu Button
+            Menu {
                 ForEach(ProfileIconOptions.all, id: \.symbol) { option in
-                    Image(systemName: option.symbol).tag(option.symbol)
+                    Button {
+                        position.icon.wrappedValue = option.symbol
+                    } label: {
+                        Label(option.label, systemImage: option.symbol)
+                    }
+                }
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(Color.primary.opacity(0.04))
+                        .frame(width: 36, height: 36)
+                    
+                    Image(systemName: position.icon.wrappedValue)
+                        .font(.system(size: 14))
+                        .foregroundStyle(BrandTheme.accent)
                 }
             }
-            .labelsHidden()
-            .frame(width: 40)
-
-            TextField("Name", text: position.name)
-                .textFieldStyle(.roundedBorder)
-
-            HStack(spacing: 4) {
+            .menuStyle(.button)
+            .buttonStyle(.plain)
+            .frame(width: 36)
+            .padding(.leading, 12)
+            
+            // Name field
+            TextField("Position Name", text: position.name)
+                .textFieldStyle(.plain)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(.primary)
+            
+            Spacer()
+            
+            // Height and trash
+            HStack(spacing: 8) {
                 TextField("cm", value: position.height, format: .number.precision(.fractionLength(0)))
-                    .textFieldStyle(.roundedBorder)
-                    .frame(width: 52)
+                    .textFieldStyle(.plain)
+                    .frame(width: 40)
                     .multilineTextAlignment(.trailing)
+                    .font(.body.weight(.bold))
+                    .foregroundStyle(BrandTheme.accent)
+                
                 Text("cm")
-                    .font(.caption)
                     .foregroundStyle(.secondary)
+                    .font(.subheadline)
+                
+                Button {
+                    removeCustomPosition(id: position.wrappedValue.id)
+                } label: {
+                    Image(systemName: "trash")
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+                .help("Remove custom position")
             }
-
-            Button {
-                removeCustomPosition(id: position.wrappedValue.id)
-            } label: {
-                Image(systemName: "trash")
-            }
-            .buttonStyle(.borderless)
-            .foregroundStyle(.secondary)
-            .help("Remove")
+            .padding(.trailing, 12)
         }
+        .padding(.vertical, 8)
     }
 
     // MARK: - Bindings
@@ -277,3 +466,4 @@ struct ProfileExportDocument: FileDocument {
         FileWrapper(regularFileWithContents: data)
     }
 }
+

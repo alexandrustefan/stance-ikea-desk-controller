@@ -4,8 +4,8 @@ import Foundation
 final class AppDataStore {
     private let defaults: UserDefaults
 
-    init() {
-        defaults = UserDefaults(suiteName: AppConstants.appGroupID) ?? .standard
+    init(userDefaults: UserDefaults? = nil) {
+        defaults = userDefaults ?? UserDefaults(suiteName: AppConstants.appGroupID) ?? .standard
     }
 
     func loadDeskDevices() -> [DeskDevice] {
