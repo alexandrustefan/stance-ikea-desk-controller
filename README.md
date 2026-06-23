@@ -45,9 +45,29 @@ Everything runs on your Mac. No account. No cloud sync.
 
 1. Go to **[Releases](https://github.com/alexandrustefan/stance-ikea-desk-controller/releases/latest)** and download **`Stance-x.x.x.dmg`**.
 2. Open the DMG and **drag Stance to Applications**.
-3. **First launch:** macOS will warn that the app is from an unidentified developer. That is normal for unsigned open-source Mac apps.
-   - **Right-click Stance** in Applications → **Open** → click **Open** again, **or**
-   - Open Stance once, then go to **System Settings → Privacy & Security → Open Anyway**.
+3. **First launch — macOS will block Stance.** The app is not signed with an Apple Developer certificate yet, so macOS cannot verify it. That is normal for free open-source Mac apps. **Do not click Move to Trash.**
+
+   **If you see “Stance Not Opened” with only Done / Move to Trash** (common on macOS 15+):
+
+   1. Click **Done**.
+   2. Open **System Settings → Privacy & Security**.
+   3. Scroll down — you should see **“Stance” was blocked** with an **Open Anyway** button:
+
+   <p align="center">
+     <img src="screenshots/open_anwyay.png" alt="Privacy & Security showing Stance was blocked with an Open Anyway button" width="520" />
+   </p>
+
+   4. Click **Open Anyway**, then confirm **Open Anyway** again.
+
+   **Alternative:** In Finder → **Applications**, **right-click** (or Control-click) **Stance** → **Open** → confirm **Open** in the dialog. This often works without visiting Settings.
+
+   **Still blocked?** Stance may be quarantined from the download. In Terminal:
+
+   ```bash
+   xattr -cr /Applications/Stance.app
+   ```
+
+   Then try **right-click → Open** again.
 4. Open Stance from Applications or Spotlight (⌘Space → “Stance”).
 5. Click **Allow** when macOS asks for **Bluetooth**.
 6. Look for the **table icon** in your menu bar (top-right).
