@@ -131,11 +131,15 @@ struct MenuBarLocationHint: View {
                         .foregroundStyle(.tint)
                         .padding(6)
                         .background {
-                            if #available(macOS 26, *) {
-                                Circle().fill(.clear).glassEffect(.regular.tint(.accentColor.opacity(0.35)).interactive())
-                            } else {
+                            #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 260000
+                                if #available(macOS 26, *) {
+                                    Circle().fill(.clear).glassEffect(.regular.tint(.accentColor.opacity(0.35)).interactive())
+                                } else {
+                                    Circle().fill(.tint.opacity(0.15))
+                                }
+                            #else
                                 Circle().fill(.tint.opacity(0.15))
-                            }
+                            #endif
                         }
                 }
                 .font(.caption)

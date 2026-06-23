@@ -139,11 +139,15 @@ struct SettingsDetailScaffold<Content: View>: View {
 extension View {
     @ViewBuilder
     func adaptiveScrollEdgeEffect() -> some View {
-        if #available(macOS 26, *) {
-            self.scrollEdgeEffectStyle(.soft, for: .top)
-        } else {
+        #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 260000
+            if #available(macOS 26, *) {
+                self.scrollEdgeEffectStyle(.soft, for: .top)
+            } else {
+                self
+            }
+        #else
             self
-        }
+        #endif
     }
 }
 
